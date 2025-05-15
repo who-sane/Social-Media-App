@@ -8,42 +8,43 @@ export const Navbar = () => {
 
     const displayName = user?.user_metadata.user_name || user?.email;
     return (
-        <nav className="fixed top-0 w-full z-40 bg-[rgba(10,10,10,0.8)] backdrop-blur-lg border-b border-white/10 shadow-lg">
+        <nav className="fixed top-0 w-full z-40 bg-[#503D42] backdrop-blur-lg border-b border-white/10 shadow-lg">
             <div className="max-w-5xl mx-auto px-4">
                 <div className="flex justify-between items-center h-16">
                     <Link to="/" className="font-mono text-xl font-bold text-white">
-                        fraiche<span className="text-sky-600">.ville</span>
+                        dev<span className="text-sky-600">.io</span>
                     </Link>
 
                     {/* desktop */}
-                    <div className="hidden md:flex items-center space-x-8">
+                    <div className="hidden md:flex items-center space-x-0">
                         <Link
                             to="/"
-                            className="text-gray-300 hover:text-white transition-colors"
+                            className="text-white hover:text-sky-600 transition-colors px-4 relative"
                         >
                             Home
                         </Link>
+                        <span className="h-6 w-px bg-gray-300 mx-1" />
                         <Link
                             to="/create"
-                            className="text-gray-300 hover:text-white transition-colors"
+                            className="text-white hover:text-sky-600 transition-colors px-4 relative"
                         >
                             Create Post
                         </Link>
+                        <span className="h-6 w-px bg-gray-300 mx-1" />
                         <Link
                             to="/communities"
-                            className="text-gray-300 hover:text-white transition-colors"
+                            className="text-white hover:text-sky-600 transition-colors px-4 relative"
                         >
                             Communities
                         </Link>
+                        <span className="h-6 w-px bg-gray-300 mx-1" />
                         <Link
                             to="/community/create"
-                            className="text-gray-300 hover:text-white transition-colors"
+                            className="text-white hover:text-sky-600 transition-colors px-4 relative"
                         >
                             Create Community
                         </Link>
                     </div>
-
-
 
                     {/* Desktop Auth */}
                     <div className="hidden md:flex items-center">
@@ -53,21 +54,22 @@ export const Navbar = () => {
                                     <img
                                         src={user.user_metadata.avatar_url}
                                         alt="User Avatar"
-                                        className="w-8 h-8 rounded-full object-cover"
+                                        className="w-8 h-8 rounded-full object-cover hover:opacity-80 transition-opacity duration-200"
                                     />
                                 )}
-                                <span className="text-gray-300">{displayName}</span>
+                                <span className="text-white font-bold">{displayName}</span>
                                 <button
                                     onClick={signOut}
-                                    className="bg-red-500 px-3 py-1 rounded"
+                                    className="text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition-colors duration-200 cursor-pointer"
+                                    aria-label="Logout"
                                 >
-                                    Sign Out
+                                    Logout
                                 </button>
                             </div>
                         ) : (
                             <button
                                 onClick={signInWithGitHub}
-                                className="bg-blue-500 px-3 py-1 rounded"
+                                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
                             >
                                 Sign in with GitHub
                             </button>
