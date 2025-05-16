@@ -18,13 +18,17 @@ export const fetchCommunities = async (): Promise<Community[]> => {
   return data as Community[];
 };
 
-export const CommunityList = () => {
+interface CommunityListProps {
+  searchTerm?: string;
+}
+
+export const CommunityList = ({ searchTerm = "" }: CommunityListProps) => {
   const { data, error, isLoading } = useQuery<Community[], Error>({
     queryKey: ["communities"],
     queryFn: fetchCommunities,
   });
 
-  // Fetch post counts for each community
+  // fetch post counts for each community
   const { data: postCounts } = useQuery<{ community_id: number; count: number }[], Error>({
     queryKey: ["communityPostCounts"],
     queryFn: async () => {
@@ -33,7 +37,6 @@ export const CommunityList = () => {
         .select("community_id")
         .not("community_id", "is", null);
       if (error) throw new Error(error.message);
-      // Aggregate counts by community_id
       const counts: { [key: number]: number } = {};
       data?.forEach((row: any) => {
         if (row.community_id) {
@@ -43,6 +46,13 @@ export const CommunityList = () => {
       return Object.entries(counts).map(([community_id, count]) => ({ community_id: Number(community_id), count }));
     },
   });
+
+  let filtered = data ?? [];
+  if (searchTerm) {
+    filtered = filtered.filter((community) =>
+      community.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
 
   if (isLoading)
     return <div className="text-center py-4">Loading communities...</div>;
@@ -55,12 +65,12 @@ export const CommunityList = () => {
 
   return (
     <div className="max-w-5xl mx-auto space-y-4">
-      {data && data.length === 0 ? (
+      {filtered && filtered.length === 0 ? (
         <div className="text-center text-gray-400 text-xl font-semibold bg-white rounded p-4">
-          No communities exist yet.
+          No communities found.
         </div>
       ) : (
-        data?.map((community) => {
+        filtered?.map((community) => {
           const postCount = postCounts?.find((c) => c.community_id === community.id)?.count || 0;
           return (
             <div
