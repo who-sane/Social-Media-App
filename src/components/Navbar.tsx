@@ -24,13 +24,17 @@ export const Navbar = () => {
                             Home
                         </Link>
                         <span className="h-6 w-px bg-gray-300 mx-1" />
-                        <Link
-                            to="/create"
-                            className="text-white hover:text-sky-600 transition-colors px-4 relative"
-                        >
-                            Create Post
-                        </Link>
-                        <span className="h-6 w-px bg-gray-300 mx-1" />
+                        {user && (
+                            <>
+                                <Link
+                                    to="/create"
+                                    className="text-white hover:text-sky-600 transition-colors px-4 relative"
+                                >
+                                    Create Post
+                                </Link>
+                                <span className="h-6 w-px bg-gray-300 mx-1" />
+                            </>
+                        )}
                         <Link
                             to="/communities"
                             className="text-white hover:text-sky-600 transition-colors px-4 relative"
@@ -38,18 +42,20 @@ export const Navbar = () => {
                             Communities
                         </Link>
                         <span className="h-6 w-px bg-gray-300 mx-1" />
-                        <Link
-                            to="/community/create"
-                            className="text-white hover:text-sky-600 transition-colors px-4 relative"
-                        >
-                            Create Community
-                        </Link>
+                        {user && (
+                            <Link
+                                to="/community/create"
+                                className="text-white hover:text-sky-600 transition-colors px-4 relative"
+                            >
+                                Create Community
+                            </Link>
+                        )}
                     </div>
 
                     {/* Desktop Auth */}
-                    <div className="hidden md:flex items-center">
+                    <div className="hidden md:flex items-center justify-end">
                         {user ? (
-                            <div className="flex items-center space-x-4">
+                            <div className="flex flex-row items-center space-x-4">
                                 {user.user_metadata?.avatar_url && (
                                     <img
                                         src={user.user_metadata.avatar_url}
@@ -60,7 +66,7 @@ export const Navbar = () => {
                                 <span className="text-white font-bold">{displayName}</span>
                                 <button
                                     onClick={signOut}
-                                    className="text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition-colors duration-200 cursor-pointer"
+                                    className="self-center flex items-center justify-center text-white bg-red-500 px-2 py-1 rounded hover:bg-red-600 transition-colors duration-200 cursor-pointer"
                                     aria-label="Logout"
                                 >
                                     Logout
@@ -121,24 +127,58 @@ export const Navbar = () => {
                         >
                             Home
                         </Link>
-                        <Link
-                            to="/create"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
-                        >
-                            Create Post
-                        </Link>
+                        {user && (
+                            <Link
+                                to="/create"
+                                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+                            >
+                                Create Post
+                            </Link>
+                        )}
                         <Link
                             to="/communities"
                             className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
                         >
                             Communities
                         </Link>
-                        <Link
-                            to="/community/create"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
-                        >
-                            Create Community
-                        </Link>
+                        {user && (
+                            <Link
+                                to="/community/create"
+                                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+                            >
+                                Create Community
+                            </Link>
+                        )}
+                        <div className="mt-4 border-t border-gray-700 pt-4 flex flex-col items-start space-y-2">
+                            {user ? (
+                                <>
+                                    <div className="flex items-center space-x-3 mb-2">
+                                        {user.user_metadata?.avatar_url && (
+                                            <img
+                                                src={user.user_metadata.avatar_url}
+                                                alt="User Avatar"
+                                                className="w-8 h-8 rounded-full object-cover"
+                                            />
+                                        )}
+                                        <span className="text-white font-bold text-base">{displayName}</span>
+                                    </div>
+                                    <button
+                                        onClick={() => { setMenuOpen(false); signOut(); }}
+                                        className="w-full text-white bg-red-500 px-3 py-2 rounded hover:bg-red-600 transition-colors duration-200 text-center"
+                                        aria-label="Logout"
+                                    >
+                                        Logout
+                                    </button>
+                                </>
+                            ) : (
+                                <button
+                                    onClick={() => { setMenuOpen(false); signInWithGitHub(); }}
+                                    className="w-full bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 transition-colors duration-200 text-left"
+                                >
+                                    Sign in with GitHub
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}
