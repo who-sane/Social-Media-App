@@ -9,10 +9,8 @@ interface CommunityInput {
   description: string;
 }
 const createCommunity = async (community: CommunityInput) => {
-  // Capitalize first letter of name
   const name = community.name.charAt(0).toUpperCase() + community.name.slice(1);
 
-  // Check for existing community with same name (case-insensitive)
   const { data: existing, error: checkError } = await supabase
     .from("communities")
     .select("id")

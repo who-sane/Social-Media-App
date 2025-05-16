@@ -15,7 +15,7 @@ export const Footer = () => (
         <span className="sm:mx-2">Built with ❤️ for developers</span>
         <span className="hidden sm:inline">|</span>
         <a
-          href="https://github.com/who-sane/dev.io-social-media-app"
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           target="_blank"
           rel="noopener noreferrer"
           className="text-sky-400 hover:text-sky-200 transition-colors"
