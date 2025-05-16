@@ -7,11 +7,13 @@ import { CreateCommunityPage } from "./pages/CreateCommunityPage";
 import { CommunitiesPage } from "./pages/CommunitiesPage";
 import { CommunityPage } from "./pages/CommunityPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Footer } from './components/Footer';
+
 function App() {
   return (
-    <div className="min-h-screen bg-rose-50 text-black-900 transition-opacity duration-700 pt-20">
+    <div className="min-h-screen bg-rose-50 text-black-900 transition-opacity duration-700 pt-20 flex flex-col">
       <Navbar />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={
@@ -29,6 +31,7 @@ function App() {
           <Route path="/community/:id" element={<CommunityPage />} />
         </Routes>
       </div>
+      <Footer />
     </div>
   )
 }
