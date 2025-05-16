@@ -193,6 +193,26 @@ export const CreatePost = () => {
       </div>
 
       <div>
+        <select
+          id="community"
+          onChange={handleCommunityChange}
+          className="w-full text-center border border-white/10 bg-[#503D42] text-white p-2 rounded focus:outline-none cursor-pointer focus:ring-2 focus:ring-purple-500 "
+          style={{ fontFamily: '"Pixelify Sans", monospace' }}
+        >
+          <option value="">Select Community ( Optional )</option>
+          {communities?.map((community, key) => (
+            <option
+              key={key}
+              value={community.id}
+              className="bg-gray-900 text-gray-200"
+            >
+              {community.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
         <label htmlFor="title" className="block mb-2 font-medium">
           Title
         </label>
@@ -217,25 +237,6 @@ export const CreatePost = () => {
           rows={5}
           required
         />
-      </div>
-
-      <div>
-        <select
-          id="community"
-          onChange={handleCommunityChange}
-          className="w-60 border border-white/10 bg-rose-700 text-gray-200 p-2 rounded focus:outline-none cursor-pointer focus:ring-2 focus:ring-purple-500 "
-        >
-          <option value={""}> -- Choose a Community -- </option>
-          {communities?.map((community, key) => (
-            <option
-              key={key}
-              value={community.id}
-              className="bg-gray-900 text-gray-200"
-            >
-              {community.name}
-            </option>
-          ))}
-        </select>
       </div>
 
       <div>
